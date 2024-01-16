@@ -75,7 +75,7 @@ docs = json.loads(Path(file_path).read_text())
 # 对文本进行分块
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=500, chunk_overlap=150)
-split_docs = text_splitter.split_documents(docs)
+split_docs = text_splitter.create_documents(docs)
 
 # 加载开源词向量模型
 embeddings = HuggingFaceEmbeddings(model_name="/home/xlab-app-center/model/sentence-transformer")
