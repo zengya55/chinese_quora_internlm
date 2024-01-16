@@ -50,14 +50,14 @@ def get_text(dir_path):
     return docs
 
 # 目标文件夹
-tar_dir = [
-    "/root/data/InternLM",
-    "/root/data/InternLM-XComposer",
-    "/root/data/lagent",
-    "/root/data/lmdeploy",
-    "/root/data/opencompass",
-    "/root/data/xtuner"
-]
+# tar_dir = [
+#     "/root/data/InternLM",
+#     "/root/data/InternLM-XComposer",
+#     "/root/data/lagent",
+#     "/root/data/lmdeploy",
+#     "/root/data/opencompass",
+#     "/root/data/xtuner"
+# ]
 
 # 加载目标文件
 # docs = []
@@ -66,7 +66,7 @@ tar_dir = [
 
 
 # 通过json加载器加载json数据
-file_path='/root/alpaca_gpt4_data_zh.json'
+file_path='./alpaca_gpt4_data_zh.json'
 docs = json.loads(Path(file_path).read_text())
 
 # 对文本进行分块
