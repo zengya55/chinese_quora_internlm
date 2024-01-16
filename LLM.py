@@ -9,7 +9,7 @@ class InternLM_LLM(LLM):
     tokenizer : AutoTokenizer = None
     model: AutoModelForCausalLM = None
 
-    def __init__(self, model_path :str):
+    def __init__(self):
         # model_path: InternLM 模型路径
         # 从本地初始化模型
         super().__init__()
