@@ -7,7 +7,8 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 import gradio as gr
 from sentence_transformers import SentenceTransformer
-
+os.system('python download_hf.py')
+os.python('python create_db.py')
 def load_chain():
     # 加载问答链
     # 定义 Embeddings
