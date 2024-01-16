@@ -69,7 +69,7 @@ def get_text(dir_path):
 
 
 # 通过json加载器加载json数据
-file_path='./alpaca_gpt4_data_zh.json'
+file_path='/home/xlab-app-center/chinese_quora_internlm/alpaca_gpt4_data_zh.json'
 docs = json.loads(Path(file_path).read_text())
 
 # 对文本进行分块
