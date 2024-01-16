@@ -22,7 +22,7 @@ class InternLM_LLM(LLM):
         self.tokenizer = AutoTokenizer.from_pretrained(model_dir, device_map="auto", trust_remote_code=True)
         # Set `torch_dtype=torch.float16` to load model in float16, otherwise it will be loaded as float32 and might cause OOM Error.
         self.model = AutoModelForCausalLM.from_pretrained(model_dir, device_map="auto",  trust_remote_code=True, torch_dtype=torch.float16)
-        self.model = model.eval()
+        self.model = self.model.eval()
 
     def _call(self, prompt : str, stop: Optional[List[str]] = None,
                 run_manager: Optional[CallbackManagerForLLMRun] = None,
