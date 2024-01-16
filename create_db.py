@@ -7,6 +7,7 @@ from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from tqdm import tqdm
 import os
 from langchain.document_loaders import JSONLoader
+from sentence_transformers import SentenceTransformer
 import json
 from pathlib import Path
 from pprint import pprint
@@ -74,8 +75,9 @@ text_splitter = RecursiveCharacterTextSplitter(
 split_docs = text_splitter.split_documents(docs)
 
 # 加载开源词向量模型
-embeddings = HuggingFaceEmbeddings(model_name="/root/data/model/sentence-transformer")
-
+# embeddings = HuggingFaceEmbeddings(model_name="/root/data/model/sentence-transformer")
+model_name = "sentence-transformers/bert-base-nli-mean-tokens"
+embeddings = SentenceTransformer(model_name)
 # 构建向量数据库
 # 定义持久化路径
 persist_directory = 'data_base/vector_db/chroma'
