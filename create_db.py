@@ -71,11 +71,11 @@ def get_text(dir_path):
 # 通过json加载器加载json数据
 file_path='/home/xlab-app-center/alpaca_gpt4_data_zh.json'
 docs = json.loads(Path(file_path).read_text())
-
+docs_str = json.dumps(docs)
 # 对文本进行分块
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=500, chunk_overlap=150)
-split_docs = text_splitter.create_documents(docs)
+split_docs = text_splitter.create_documents(docs_str)
 
 # 加载开源词向量模型
 embeddings = HuggingFaceEmbeddings(model_name="/home/xlab-app-center/model/sentence-transformer")
