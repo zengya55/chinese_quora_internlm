@@ -3,7 +3,7 @@ from typing import Any, List, Optional
 from langchain.callbacks.manager import CallbackManagerForLLMRun
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
-
+from modelscope import snapshot_download, AutoTokenizer, AutoModelForCausalLM
 class InternLM_LLM(LLM):
     # 基于本地 InternLM 自定义 LLM 类
     tokenizer : AutoTokenizer = None
@@ -13,11 +13,16 @@ class InternLM_LLM(LLM):
         # model_path: InternLM 模型路径
         # 从本地初始化模型
         super().__init__()
-        print("正在从本地加载模型...")
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
-        self.model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True).to(torch.bfloat16).cuda()
-        self.model = self.model.eval()
-        print("完成本地模型的加载")
+        # print("正在从本地加载模型...")
+        # self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+        # self.model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True).to(torch.bfloat16).cuda()
+        # self.model = self.model.eval()
+        # print("完成本地模型的加载")
+        model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm-chat-7b', revision='v1.0.2')
+        self.tokenizer = AutoTokenizer.from_pretrained(model_dir, device_map="auto", trust_remote_code=True)
+        # Set `torch_dtype=torch.float16` to load model in float16, otherwise it will be loaded as float32 and might cause OOM Error.
+        self.model = AutoModelForCausalLM.from_pretrained(model_dir, device_map="auto",  trust_remote_code=True, torch_dtype=torch.float16)
+        self.model = model.eval()
 
     def _call(self, prompt : str, stop: Optional[List[str]] = None,
                 run_manager: Optional[CallbackManagerForLLMRun] = None,
